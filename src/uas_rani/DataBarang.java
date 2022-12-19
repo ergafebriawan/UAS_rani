@@ -7,14 +7,14 @@ package uas_rani;
 
 /**
  *
- * @author IT SAYGON WATERPARK
+ * @author FUSIONX
  */
-public class Supplier extends javax.swing.JFrame {
+public class DataBarang extends javax.swing.JFrame {
 
     /**
-     * Creates new form Supplier
+     * Creates new form DataBarang
      */
-    public Supplier() {
+    public DataBarang() {
         initComponents();
     }
 
@@ -35,12 +35,12 @@ public class Supplier extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lbl_message = new javax.swing.JLabel();
         btn_back = new javax.swing.JButton();
-        in_kode = new javax.swing.JTextField();
+        in_kodeBarang = new javax.swing.JTextField();
         btn_tambah = new javax.swing.JButton();
-        in_namaPelanggan = new javax.swing.JTextField();
-        in_alamat = new javax.swing.JPasswordField();
-        in_nohp = new javax.swing.JPasswordField();
-        jLabel6 = new javax.swing.JLabel();
+        in_namaBarang = new javax.swing.JTextField();
+        in_stok = new javax.swing.JPasswordField();
+        in_kategori = new javax.swing.JPasswordField();
+        Stok = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -67,7 +67,7 @@ public class Supplier extends javax.swing.JFrame {
 
         btn_bersihkan.setText("bersihkan");
 
-        jLabel5.setText("Daftar Supplier");
+        jLabel5.setText("Daftar Barang");
 
         lbl_message.setText("message");
 
@@ -80,15 +80,15 @@ public class Supplier extends javax.swing.JFrame {
 
         btn_tambah.setText("tambah");
 
-        jLabel6.setText("alamat");
+        Stok.setText("Stok");
 
-        jLabel1.setText("Supplier");
+        jLabel1.setText("Data Barang");
 
-        jLabel2.setText("kode supplier");
+        jLabel2.setText("Kode Barang");
 
-        jLabel3.setText("nama supplier");
+        jLabel3.setText("Nama Barang");
 
-        jLabel4.setText("no HP");
+        jLabel4.setText("Kategori");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,13 +100,13 @@ public class Supplier extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(Stok)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(in_alamat, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(in_kode, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(in_namaPelanggan, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(in_stok, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(in_kodeBarang, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(in_namaBarang, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
@@ -114,8 +114,8 @@ public class Supplier extends javax.swing.JFrame {
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel1)
                                             .addComponent(lbl_message))
-                                        .addGap(0, 141, Short.MAX_VALUE))
-                                    .addComponent(in_nohp, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(0, 120, Short.MAX_VALUE))
+                                    .addComponent(in_kategori, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,19 +146,19 @@ public class Supplier extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(in_kode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
+                        .addComponent(in_kodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(in_namaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
+                        .addComponent(in_namaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(in_nohp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(in_kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel6)
+                        .addComponent(Stok)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(in_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(in_stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
                         .addComponent(lbl_message)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -196,40 +196,40 @@ public class Supplier extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DataBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DataBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DataBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Supplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DataBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Supplier().setVisible(true);
+                new DataBarang().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Stok;
     private javax.swing.JButton btn_back;
     private javax.swing.JButton btn_bersihkan;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_tambah;
-    private javax.swing.JPasswordField in_alamat;
-    private javax.swing.JTextField in_kode;
-    private javax.swing.JTextField in_namaPelanggan;
-    private javax.swing.JPasswordField in_nohp;
+    private javax.swing.JPasswordField in_kategori;
+    private javax.swing.JTextField in_kodeBarang;
+    private javax.swing.JTextField in_namaBarang;
+    private javax.swing.JPasswordField in_stok;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_message;
     private javax.swing.JTable table_admin;

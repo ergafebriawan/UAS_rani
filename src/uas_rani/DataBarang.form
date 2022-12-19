@@ -29,14 +29,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <Component id="Stok" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="in_alamat" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="in_kode" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="in_namaPelanggan" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="in_stok" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="in_kodeBarang" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="in_namaBarang" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -45,9 +45,9 @@
                                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="lbl_message" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="141" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="120" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="in_nohp" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="in_kategori" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           </Group>
@@ -88,19 +88,19 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="in_kode" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="in_kodeBarang" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="in_namaPelanggan" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="in_namaBarang" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="in_nohp" min="-2" max="-2" attributes="0"/>
+                      <Component id="in_kategori" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <Component id="Stok" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="in_alamat" min="-2" max="-2" attributes="0"/>
+                      <Component id="in_stok" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="lbl_message" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -157,7 +157,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Daftar Supplier"/>
+        <Property name="text" type="java.lang.String" value="Daftar Barang"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_message">
@@ -173,42 +173,42 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_backActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="in_kode">
+    <Component class="javax.swing.JTextField" name="in_kodeBarang">
     </Component>
     <Component class="javax.swing.JButton" name="btn_tambah">
       <Properties>
         <Property name="text" type="java.lang.String" value="tambah"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="in_namaPelanggan">
+    <Component class="javax.swing.JTextField" name="in_namaBarang">
     </Component>
-    <Component class="javax.swing.JPasswordField" name="in_alamat">
+    <Component class="javax.swing.JPasswordField" name="in_stok">
     </Component>
-    <Component class="javax.swing.JPasswordField" name="in_nohp">
+    <Component class="javax.swing.JPasswordField" name="in_kategori">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="Stok">
       <Properties>
-        <Property name="text" type="java.lang.String" value="alamat"/>
+        <Property name="text" type="java.lang.String" value="Stok"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Supplier"/>
+        <Property name="text" type="java.lang.String" value="Data Barang"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="kode supplier"/>
+        <Property name="text" type="java.lang.String" value="Kode Barang"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="nama supplier"/>
+        <Property name="text" type="java.lang.String" value="Nama Barang"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="no HP"/>
+        <Property name="text" type="java.lang.String" value="Kategori"/>
       </Properties>
     </Component>
   </SubComponents>
