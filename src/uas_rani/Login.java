@@ -22,8 +22,16 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    Connection con;
+    Statement stat;
+    ResultSet rs;
+    
     public Login() {
         initComponents();
+        Config DB = new Config();
+        DB.connect();
+        con = DB.con;
+        stat = DB.stm;
     }
 
     /**
@@ -46,7 +54,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Inventory Gudang");
+        jLabel4.setText("Pendaftaran Nasabah");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Login");
@@ -68,13 +76,8 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_login)
-                        .addGap(142, 142, 142))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(150, 150, 150))))
+                .addComponent(jLabel1)
+                .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -86,7 +89,10 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(in_password, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(109, 109, 109)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(btn_login)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -98,15 +104,15 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(17, 17, 17)
                 .addComponent(jLabel2)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(in_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(in_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(btn_login)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,22 +120,16 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         // TODO add your handling code here:
-        String username = in_username.getText();
-        String password = in_password.getText();
-        Config config = new Config();
-        String query = "SELECT * FROM admin WHERE username='"+username+"';";
+        String username = in_username.getText().toString();
+        String password = in_password.getText().toString();
+        String query = "SELECT * FROM admin WHERE username='"+username+"' AND password='"+password+"';";
         try {
-            Connection conn = (Connection)config.configDB();
-            Statement stm = conn.createStatement();
-            ResultSet res = stm.executeQuery(query);
-            
-            if(!res.next()){
-                JOptionPane.showMessageDialog(rootPane, "Username tidak ditemukan!!!");
-            }
-            
-            if(res.next()){
-                if(password.equals(res.getString(3))){
+            rs = stat.executeQuery(query);
+            if(rs.next()){
+                if(username.equals(rs.getString("username")) && password.equals(rs.getString("password"))){
                     JOptionPane.showMessageDialog(null, "berhasil login");
+                    dispose();
+                    new MainApps().setVisible(true);
                 }
             }else{
                     JOptionPane.showMessageDialog(null, "username atau password salah");

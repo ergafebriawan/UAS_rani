@@ -5,26 +5,26 @@
  */
 package uas_rani;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author IT SAYGON WATERPARK
  */
 public class Config {
-    private static Connection mysqlconfig;
-    public static Connection configDB()throws SQLException{
+    Connection con;
+    Statement stm;
+    public void connect(){
         try {
-            String url="jdbc:mysql://localhost:3306/inventory_gudang"; //url database
-            String user="root"; //user database
-            String pass=""; //password database
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            mysqlconfig=(Connection) DriverManager.getConnection(url, user, pass);            
+            Class.forName("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/registrasi_bank", "root", "");
+            stm = con.createStatement();                   
         } catch (Exception e) {
-            System.err.println("koneksi gagal "+e.getMessage()); //perintah menampilkan error pada koneksi
+            JOptionPane.showMessageDialog(null, "koneksi gagal "+e.getMessage());
         }
-        return mysqlconfig;
     }
 }
