@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static uas_rani.Config.Koneksi;
 
 /**
  *
@@ -23,8 +25,10 @@ public class Pendaftaran extends javax.swing.JFrame {
     /**
      * Creates new form Pendaftaran
      */
-    Connection con;
-    PreparedStatement stat;
+    public Statement st;
+    public ResultSet rs;
+    public DefaultTableModel tabModel;
+    Connection cn = Koneksi();
     
     public Pendaftaran() {
         initComponents();
@@ -33,6 +37,8 @@ public class Pendaftaran extends javax.swing.JFrame {
         btnGroupJebnisKelamin.add(radioLakilaki);
         btnGroupJebnisKelamin.add(radioPerempaun);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,11 +84,15 @@ public class Pendaftaran extends javax.swing.JFrame {
 
         jLabel6.setText("Nama Ibu Kandung");
 
-        jLabel7.setText("Tgl Lahir");
+        jLabel7.setText("Tgl Lahir (yyyy-mm-dd)");
 
         radioLakilaki.setText("Laki-laki");
 
         radioPerempaun.setText("Perempuan");
+
+        in_tglLahir.setToolTipText("Format tgl yyy-mm-dd");
+
+        in_saldoPerdana.setText("0");
 
         jLabel8.setText("Saldo Perdana");
 
@@ -225,16 +235,26 @@ public class Pendaftaran extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Jenis Kelamin belum dipilih..");
         }
         
-        if(nama.isEmpty() || nik.isEmpty() || alamat.isEmpty() || tgl_lahir.isEmpty() || ibu.isEmpty() || saldo == 0){
+        if(nama.equals("") || nik.equals("") || alamat.equals("") || tgl_lahir.equals("") || ibu.equals("") || saldo == 0){
             JOptionPane.showMessageDialog(rootPane, "ada field yang kosong...");
         }else{
             String query = "INSERT INTO nasabah "
                             +"(`id`, `nama`, `nik`, `jenis_kelamin`, `alamat`, `ibu_kandung`, `tgl_lahir`, `saldo`)"
                             +" VALUES (NULL, '"+nama+"', '"+nik+"', '"+jenis_Kelamin+"', '"+alamat+"', '"+ibu+"', '"+tgl_lahir+"', '"+saldo+"');";
-            Config DB = new Config();
-            DB.connect();
+            
             try {
-                stat.executeQuery(query);
+                st = cn.createStatement();
+                st.executeUpdate(query);
+                JOptionPane.showMessageDialog(rootPane, "Berhasil menambahkan data..");
+                
+                in_nama.setText("");
+                in_nik.setText("");
+                in_alamat.setText("");
+                in_tglLahir.setText("");
+                in_saldoPerdana.setText("");
+                in_ibu.setText("");
+                radioLakilaki.setSelected(false);
+                radioPerempaun.setSelected(false);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Gagal Regitrasi Nasabah...");
             }

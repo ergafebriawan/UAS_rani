@@ -147,7 +147,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tgl Lahir"/>
+        <Property name="text" type="java.lang.String" value="Tgl Lahir (yyyy-mm-dd)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="in_nama">
@@ -169,8 +169,14 @@
     <Component class="javax.swing.JTextField" name="in_ibu">
     </Component>
     <Component class="javax.swing.JTextField" name="in_tglLahir">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Format tgl yyy-mm-dd"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="in_saldoPerdana">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>

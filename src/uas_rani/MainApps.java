@@ -5,6 +5,14 @@
  */
 package uas_rani;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import static uas_rani.Config.Koneksi;
+
 /**
  *
  * @author IT SAYGON WATERPARK
@@ -14,8 +22,19 @@ public class MainApps extends javax.swing.JFrame {
     /**
      * Creates new form MainApps
      */
-    public MainApps() {
+    public Statement st;
+    public ResultSet rs;
+    public DefaultTableModel tabModel;
+    Connection cn = Koneksi();
+    String admin;
+
+    public MainApps(String admin) {
         initComponents();
+        headerTable();
+        tampilData();
+        this.admin = admin;
+        System.out.println(admin);
+        lbl_admin.setText(admin);
     }
 
     /**
@@ -27,17 +46,30 @@ public class MainApps extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        context = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBarang = new javax.swing.JTable();
+        tableNasabah = new javax.swing.JTable();
         btnLogout = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         btnAdmin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btn_toPendaftaran = new javax.swing.JButton();
+        btn_refresh = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        lbl_admin = new javax.swing.JLabel();
+
+        jMenuItem1.setText("Hapus");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        context.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblBarang.setModel(new javax.swing.table.DefaultTableModel(
+        tableNasabah.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,7 +80,12 @@ public class MainApps extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblBarang);
+        tableNasabah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableNasabahMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableNasabah);
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +112,15 @@ public class MainApps extends javax.swing.JFrame {
             }
         });
 
+        btn_refresh.setText("refresh");
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("admin: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,31 +128,42 @@ public class MainApps extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_toPendaftaran, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_toPendaftaran, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_admin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(93, 93, 93)
+                        .addComponent(btn_refresh)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(176, 176, 176))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(btn_refresh))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lbl_admin))
+                        .addGap(10, 10, 10)
                         .addComponent(btn_toPendaftaran)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdmin)
@@ -133,6 +190,72 @@ public class MainApps extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Pendaftaran().setVisible(true);
     }//GEN-LAST:event_btn_toPendaftaranActionPerformed
+
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+        // TODO add your handling code here:
+        tampilData();
+    }//GEN-LAST:event_btn_refreshActionPerformed
+
+    private void tableNasabahMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNasabahMouseReleased
+        // TODO add your handling code here:
+        if (evt.isPopupTrigger()){
+            JTable source = (JTable)evt.getSource();
+            int row = source.rowAtPoint( evt.getPoint() );
+            int column = source.columnAtPoint( evt.getPoint() );
+ 
+            if (! source.isRowSelected(row))
+                source.changeSelection(row, column, false, false);
+ 
+            context.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tableNasabahMouseReleased
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int jawab;
+            String nik = tableNasabah.getValueAt(tableNasabah.getSelectedRow(), 0).toString();
+
+            if ((jawab = JOptionPane.showConfirmDialog(null, "Ingin menghapus nasabah?", "konfirmasi", JOptionPane.YES_NO_OPTION)) == 0) {
+                st = cn.createStatement();
+                st.executeUpdate("DELETE FROM nasabah WHERE nik='"+nik+"';");
+                JOptionPane.showMessageDialog(rootPane, "Berhasil menghapus nasabah..");
+                tampilData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Gagal menghapus nasabah...");
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void headerTable() {
+        Object[] judul = {
+            "NIK", "Nama", "Alamat", "Tgl Lahir", "Saldo"
+        };
+        tabModel = new DefaultTableModel(null, judul);
+        tableNasabah.setModel(tabModel);
+    }
+
+    private void tampilData() {
+        try {
+            st = cn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            tabModel.fireTableDataChanged();
+            rs = st.executeQuery("SELECT * FROM nasabah;");
+
+            while (rs.next()) {
+                Object[] data = {
+                    rs.getString("nik"),
+                    rs.getString("nama"),
+                    rs.getString("alamat"),
+                    rs.getString("tgl_lahir"),
+                    rs.getString("saldo"),};
+
+                tabModel.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -164,7 +287,7 @@ public class MainApps extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainApps().setVisible(true);
+                new MainApps("").setVisible(true);
             }
         });
     }
@@ -172,10 +295,15 @@ public class MainApps extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_toPendaftaran;
+    private javax.swing.JPopupMenu context;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBarang;
+    private javax.swing.JLabel lbl_admin;
+    private javax.swing.JTable tableNasabah;
     // End of variables declaration//GEN-END:variables
 }

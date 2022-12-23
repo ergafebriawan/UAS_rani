@@ -5,6 +5,14 @@
  */
 package uas_rani;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static uas_rani.Config.Koneksi;
+
 /**
  *
  * @author IT SAYGON WATERPARK
@@ -14,8 +22,15 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Creates new form Admin
      */
+    public Statement st;
+    public ResultSet rs;
+    public DefaultTableModel tabModel;
+    Connection cn = Koneksi();
+
     public Admin() {
         initComponents();
+        headerTable();
+        tampilData();
     }
 
     /**
@@ -38,11 +53,12 @@ public class Admin extends javax.swing.JFrame {
         btn_edit = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         btn_bersihkan = new javax.swing.JButton();
-        lbl_message = new javax.swing.JLabel();
         in_nama = new javax.swing.JTextField();
         in_username = new javax.swing.JTextField();
         in_password = new javax.swing.JPasswordField();
         btn_back = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        lbl_id = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,19 +81,42 @@ public class Admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_admin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_adminMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_admin);
 
         jLabel5.setText("daftar admin");
 
         btn_tambah.setText("tambah");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
 
         btn_edit.setText("edit");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
 
         btn_hapus.setText("hapus");
+        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapusActionPerformed(evt);
+            }
+        });
 
         btn_bersihkan.setText("bersihkan");
-
-        lbl_message.setText("message");
+        btn_bersihkan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bersihkanActionPerformed(evt);
+            }
+        });
 
         btn_back.setText("kembali");
         btn_back.addActionListener(new java.awt.event.ActionListener() {
@@ -85,6 +124,8 @@ public class Admin extends javax.swing.JFrame {
                 btn_backActionPerformed(evt);
             }
         });
+
+        jLabel6.setText("id:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,18 +136,24 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(in_nama)
-                            .addComponent(in_username)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1)
-                                    .addComponent(lbl_message))
-                                .addGap(0, 95, Short.MAX_VALUE))
-                            .addComponent(in_password))
-                        .addGap(18, 18, 18)
+                                    .addComponent(in_nama)
+                                    .addComponent(in_username)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel1))
+                                        .addGap(0, 95, Short.MAX_VALUE))
+                                    .addComponent(in_password))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_id)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
@@ -144,8 +191,10 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(in_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_message))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(lbl_id)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -164,6 +213,127 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btn_backActionPerformed
+
+    private void btn_bersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bersihkanActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_btn_bersihkanActionPerformed
+
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        // TODO add your handling code here:
+        String nama = in_nama.getText().toString();
+        String username = in_username.getText().toString();
+        String password = in_password.getText().toString();
+
+        if (nama.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "ada field yang kosong..");
+        } else {
+            String query = "INSERT INTO admin "
+                    + "(`id`, `nama`, `username`, `password`)"
+                    + " VALUES (NULL, '" + nama + "', '" + username + "', '" + password + "');";
+
+            try {
+                st = cn.createStatement();
+                st.executeUpdate(query);
+                JOptionPane.showMessageDialog(rootPane, "Berhasil menambahkan admin..");
+
+                clear();
+                tampilData();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Gagal menambahkan admin...");
+            }
+        }
+    }//GEN-LAST:event_btn_tambahActionPerformed
+
+    private void table_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_adminMouseClicked
+        // TODO add your handling code here:
+        in_nama.setText(table_admin.getValueAt(table_admin.getSelectedRow(), 1).toString());
+        in_username.setText(table_admin.getValueAt(table_admin.getSelectedRow(), 2).toString());
+        in_password.setText(table_admin.getValueAt(table_admin.getSelectedRow(), 3).toString());
+        lbl_id.setText(table_admin.getValueAt(table_admin.getSelectedRow(), 0).toString());
+        btn_tambah.setEnabled(false);
+    }//GEN-LAST:event_table_adminMouseClicked
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(lbl_id.getText());
+        String nama = in_nama.getText().toString();
+        String username = in_username.getText().toString();
+        String password = in_password.getText().toString();
+
+        if (nama.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "ada field yang kosong..");
+        } else {
+            String query = "UPDATE admin SET nama='" + nama + "', username='" + username + "', password='" + password + "' WHERE id=" + id + ";";
+
+            try {
+                st = cn.createStatement();
+                st.executeUpdate(query);
+                JOptionPane.showMessageDialog(rootPane, "Berhasil mengedit admin..");
+
+                clear();
+                tampilData();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Gagal mengedit admin...");
+            }
+        }
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+        // TODO add your handling code here:
+        try {
+            int jawab;
+            int id = Integer.parseInt(lbl_id.getText());
+
+            if ((jawab = JOptionPane.showConfirmDialog(null, "Ingin menghapus data?", "konfirmasi", JOptionPane.YES_NO_OPTION)) == 0) {
+                st = cn.createStatement();
+                st.executeUpdate("DELETE FROM admin WHERE id="+id+";");
+                JOptionPane.showMessageDialog(rootPane, "Berhasil menghapus admin..");
+
+                clear();
+                tampilData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Gagal menghapus admin...");
+        }
+    }//GEN-LAST:event_btn_hapusActionPerformed
+
+    private void headerTable() {
+        Object[] judul = {
+            "ID", "Nama", "Username", "Password"
+        };
+        tabModel = new DefaultTableModel(null, judul);
+        table_admin.setModel(tabModel);
+    }
+
+    private void tampilData() {
+        try {
+            st = cn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            tabModel.fireTableDataChanged();
+            rs = st.executeQuery("SELECT * FROM admin;");
+
+            while (rs.next()) {
+                Object[] data = {
+                    rs.getString("id"),
+                    rs.getString("nama"),
+                    rs.getString("username"),
+                    rs.getString("password")};
+
+                tabModel.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clear() {
+        in_nama.setText("");
+        in_password.setText("");
+        in_username.setText("");
+        btn_tambah.setEnabled(true);
+        lbl_id.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -214,8 +384,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_message;
+    private javax.swing.JLabel lbl_id;
     private javax.swing.JTable table_admin;
     // End of variables declaration//GEN-END:variables
 }

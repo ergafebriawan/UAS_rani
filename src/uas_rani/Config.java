@@ -21,10 +21,25 @@ public class Config {
     public void connect(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/registrasi_bank", "root", "");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/registrasi_bank", "root", "");
             stm = con.createStatement();                   
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "koneksi gagal "+e.getMessage());
+        }
+    }
+    
+    Connection koneksi;
+    
+    public static Connection Koneksi() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost/registrasi_bank", "root", "");
+            
+            return koneksi;
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+            return null;
         }
     }
 }
